@@ -1,0 +1,27 @@
+{
+  "name": "@kcsoft/node-red-jira-search",
+  "version": "1.0.0",
+  "description": "Node-RED node to search for Jira issues",
+  "node-red": {
+    "nodes": {
+      "search": "search.js",
+      "jira-connection": "jira-connection.js"
+    }
+  },
+  "author": {
+    "name": "kcsoft"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kcsoft/node-red-jira-search"
+  },
+  "dependencies": {
+    "abort-controller": "^3.0.0",
+    "node-fetch": "^2.6.11"
+  },
+  "keywords": [
+    "node-red",
+    "jira"
+  ]
+}

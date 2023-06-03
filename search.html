@@ -1,0 +1,53 @@
+<script type="text/javascript">
+  RED.nodes.registerType('search' ,{
+      category: 'jira',
+      color: '#efefef',
+      defaults: {
+      name: {
+        value: '',
+      },
+      jql: {
+        value: '',
+      },
+      fields: {
+        value: '',
+      },
+      connection: {
+        value: '',
+        type: 'jira-connection',
+        required: true,
+      },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'jira.png',
+    label: function() {
+      return this.name || 'Search';
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="search">
+  <div class="form-row">
+    <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-connection"><i class="fa fa-plug"></i> Connection</label>
+    <input type="text" id="node-input-connection">
+  </div>
+  <div class="form-row">
+    <label for="node-input-jql"><i class="fa fa-database"></i> JQL</label>
+    <textarea id="node-input-jql" style="width:300px"></textarea>
+  </div>
+  <div class="form-row">
+    <label for="node-input-fields"><i class="fa fa-stream"></i> Fields</label>
+    <input type="text" id="node-input-fields">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="search">
+  <p>Executes a Jira rest api search with JQL query, automatically fetches all the pages</p>
+  <p>The search result is placed in msg.payload</p>
+  <p>The <code>jql</code> and <code>fields</code> can be configured in the node, however if left blank, the query should be set in an incoming message on <code>msg.jql/msg.fields</code>.</p>
+</script>
