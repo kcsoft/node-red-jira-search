@@ -75,5 +75,5 @@ module.exports = function(RED) {
       }
     });
   }
-  RED.nodes.registerType('search',  Search);
+  RED.nodes.registerType('jira-search',  Search);
 }
