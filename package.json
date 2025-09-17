@@ -1,6 +1,6 @@
 {
   "name": "@kcsoft/node-red-jira-search",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node-RED node to search for Jira issues",
   "engines": {
     "node": ">=14.0.0",
