@@ -3,12 +3,12 @@ module.exports = function(RED) {
   const fetch = require('node-fetch');
   const AbortController = globalThis.AbortController || require('abort-controller');
 
-  function Page(connection, jql, fields, startAt, maxResults) {
+  function Page(connection, jql, fields, nextPageToken, maxResults) {
     const url = connection.baseUrl
       + (connection.baseUrl.substring(connection.baseUrl.length - 1) === '/' ? '' : '/')
       + 'search/jql?jql=' + encodeURIComponent(jql)
       + (fields ? '&fields=' + encodeURIComponent(fields) : '')
-      + (startAt ? '&startAt=' + encodeURIComponent(startAt) : '')
+      + (nextPageToken ? '&nextPageToken=' + encodeURIComponent(nextPageToken) : '')
       + (maxResults ? '&maxResults=' + encodeURIComponent(maxResults) : '');
 
     const controller = new AbortController();
@@ -50,20 +50,20 @@ module.exports = function(RED) {
       }
 
       const issues = [];
-      let startAt = null;
+      let nextPageToken = null;
       let maxResults = null;
 
       try {
         while (true) {
           node.status({fill:'green', shape:'ring', text:'fetching....'});
-          const response = await Page(this.connection, config.jql, config.fields, startAt, maxResults);
+          const response = await Page(this.connection, config.jql, config.fields, nextPageToken, maxResults);
           if (response.issues && response.issues.length > 0) {
             issues.push(...response.issues);
           }
-          if (response.total <= issues.length) {
+          if (response.isLast === true || !('nextPageToken' in response)) {
             break;
           }
-          startAt = response.startAt + response.maxResults;
+          nextPageToken = response.nextPageToken;
           maxResults = response.maxResults;
         }
         node.status({fill:'green', shape:'dot', text:'Done (' + issues.length + ' issues)'});
