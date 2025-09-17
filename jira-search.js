@@ -6,7 +6,7 @@ module.exports = function(RED) {
   function Page(connection, jql, fields, startAt, maxResults) {
     const url = connection.baseUrl
       + (connection.baseUrl.substring(connection.baseUrl.length - 1) === '/' ? '' : '/')
-      + 'search?jql=' + encodeURIComponent(jql)
+      + 'search/jql?jql=' + encodeURIComponent(jql)
       + (fields ? '&fields=' + encodeURIComponent(fields) : '')
       + (startAt ? '&startAt=' + encodeURIComponent(startAt) : '')
       + (maxResults ? '&maxResults=' + encodeURIComponent(maxResults) : '');
